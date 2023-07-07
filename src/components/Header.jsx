@@ -20,7 +20,9 @@ const Header = () => {
 
                         </div>
                     </div>
-                    
+                    <div>
+                        
+                    </div>
                 </div>
             </div>
             <div className='w-full h-screen absolute top-0 left-0 bg-white/10 '>
