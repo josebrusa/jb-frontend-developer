@@ -7,7 +7,7 @@ import extranjeria from "../assets/extranjeria.webp";
 const Projects = () => {
   return (
     <div className="bg-white/10">
-      <div id="projects" className="max-w-[1040px] m-auto md:pl-20 p-4 py-16">
+      <div id="projects" className="max-w-[1040px] m-auto md:pl-20 p-4 py-16 ">
         <h1 className="text-4xl font-bold text-center text-white">Projectos</h1>
         <p className="text-center py-8 text-gray-200">
           Te presento cuatro emocionantes proyectos desarrollados utilizando
@@ -21,7 +21,7 @@ const Projects = () => {
           especializado en extranjería, brindando información y servicios
           legales a clientes internacionales.
         </p>
-        <div className="grid sm:grid-cols-2 gap-12">
+        <div className="grid sm:grid-cols-2 gap-12 mb-12">
           <ProjectItems img={giffity} title="Giffity App" />
           <ProjectItems img={petsgram} title="Petsgram App" />
           <ProjectItems img={extranjeria} title="Extranjeria App" />
