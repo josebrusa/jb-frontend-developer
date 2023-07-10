@@ -1,4 +1,5 @@
-import miperfil from "../assets/miperfil.webp";
+const miperfil =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/miperfil.webp?t=2023-07-07T13%3A45%3A03.517Z";
 
 const About = () => {
   return (
