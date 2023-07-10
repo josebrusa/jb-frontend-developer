@@ -9,7 +9,7 @@ const About = () => {
           Sobre mi
         </h1>
         <div className="grid sm:grid-cols-2 gap-8 p-8 py-16 justify-items-center">
-          <p className="text-start py-4 text-gray-200">
+          <p className="text-start py-4 text-gray-200 sm:text-base font-normal">
             Soy un estudiante que se ha dedicado al aprendizaje y desarrollo
             como profesional en el campo del desarrollo frontend. Desde 2019, me
             he enfocado en adquirir habilidades sólidas en tecnologías como
@@ -34,7 +34,14 @@ const About = () => {
         </div>
         <div className="flex justify-center py-2">
           <button className="text-white mt-4 p-4 rounded-lg border-1 border-solid border-[#4A4A4A] bg-[#343639]  cursor-pointer hover:text-black hover:opacity-80 hover:shadow-sm hover:shadow-[#29F3C3] hover:border-[#313131] hover:bg-[#29F3C3]">
-            <a href="">Descarga mi cv!</a>
+            <a
+              href="https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/cv.pdf?t=2023-07-10T15%3A13%3A38.755Z"
+              download="cv"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Descarga mi cv!
+            </a>
           </button>
         </div>
       </div>
