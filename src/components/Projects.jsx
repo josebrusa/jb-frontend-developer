@@ -1,8 +1,12 @@
 import ProjectItems from "./ProjectItems";
-import giffity from "../assets/giffity.webp";
-import petsgram from "../assets/petsgram.webp";
-import fastfood from "../assets/fastfood.webp";
-import extranjeria from "../assets/extranjeria.webp";
+const giffity =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/giffity.webp";
+const petsgram =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/petsgram.webp";
+const fastfood =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/fastfood.webp";
+const extranjeria =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/extranjeria.webp?t=2023-07-07T13%3A36%3A12.239Z";
 
 const Projects = () => {
   return (
