@@ -24,9 +24,9 @@ const About = () => {
             desarrollo frontend. Estoy emocionado por la oportunidad de aplicar
             mi pasión y conocimientos en mi primer trabajo en IT.
           </p>
-          <div className="w-[300px] h-[300px] rounded-md shadow-[30px_-23px_28px_-2px_rgba(41,243,195,0.55)]">
+          <div className="md:w-[250px] h-[350px] rounded-md shadow-[30px_-23px_28px_-2px_rgba(41,243,195,0.55)]">
             <img
-              className="rounded-md w-full h-full  object-cover object-center"
+              className="rounded-md object-cover object-center w-full h-[350px]"
               src={miperfil}
               alt="foto perfil"
             />
