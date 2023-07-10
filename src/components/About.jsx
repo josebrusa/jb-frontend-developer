@@ -4,11 +4,11 @@ const miperfil =
 const About = () => {
   return (
     <div id="resume" className="bg-white/10">
-      <div className="max-w-[1040px]  m-auto py-16">
-        <h1 className="text-4xl font-bold text-center text-white mb-16">
+      <div className="max-w-[1040px]  m-auto py-10">
+        <h1 className="text-4xl font-bold text-center text-white mb-12">
           Sobre mi
         </h1>
-        <div className="grid sm:grid-cols-2 gap-8 p-8 py-16 justify-items-center">
+        <div className="grid sm:grid-cols-2 gap-8 p-8 py-10 justify-items-center">
           <p className="text-start py-4 text-gray-200 sm:text-base font-normal">
             Soy un estudiante que se ha dedicado al aprendizaje y desarrollo
             como profesional en el campo del desarrollo frontend. Desde 2019, me
@@ -24,7 +24,7 @@ const About = () => {
             desarrollo frontend. Estoy emocionado por la oportunidad de aplicar
             mi pasión y conocimientos en mi primer trabajo en IT.
           </p>
-          <div className="w-[350px] h-[350px] rounded-md shadow-[30px_-23px_28px_-2px_rgba(41,243,195,0.55)]">
+          <div className="w-[250px] h-[250px] rounded-md shadow-[30px_-23px_28px_-2px_rgba(41,243,195,0.55)]">
             <img
               className="rounded-md w-full h-full  object-cover object-center"
               src={miperfil}
