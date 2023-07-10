@@ -11,9 +11,9 @@ const extranjeria =
 const Projects = () => {
   return (
     <div className="bg-white/10">
-      <div id="projects" className="max-w-[1040px] m-auto md:pl-20 p-4 py-16 ">
+      <div id="projects" className="max-w-[1040px] m-auto md:pl-20 p-6 py-16 ">
         <h1 className="text-4xl font-bold text-center text-white">Projectos</h1>
-        <p className="text-center py-8 text-gray-200">
+        <p className="text-start py-8 text-gray-200">
           Te presento cuatro emocionantes proyectos desarrollados utilizando
           ReactJS. Uno de ellos es una página web interactiva de GIFs, donde los
           usuarios pueden descubrir y compartir divertidas animaciones. También
