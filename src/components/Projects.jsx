@@ -26,10 +26,26 @@ const Projects = () => {
           legales a clientes internacionales.
         </p>
         <div className="grid sm:grid-cols-2 gap-12 mb-12">
-          <ProjectItems img={giffity} title="Giffity App" />
-          <ProjectItems img={petsgram} title="Petsgram App" />
-          <ProjectItems img={extranjeria} title="Extranjeria App" />
-          <ProjectItems img={fastfood} title="FastFood App" />
+          <ProjectItems
+            img={giffity}
+            title="Giffity App"
+            link={"https://giffity.vercel.app/"}
+          />
+          <ProjectItems
+            img={petsgram}
+            title="Petsgram App"
+            link={"https://petsgram.vercel.app/"}
+          />
+          <ProjectItems
+            img={extranjeria}
+            title="Extranjeria App"
+            link={"https://luciano-extranjeria.vercel.app/"}
+          />
+          <ProjectItems
+            img={fastfood}
+            title="FastFood App"
+            link={"https://www.chickengrill.es/"}
+          />
         </div>
       </div>
     </div>
