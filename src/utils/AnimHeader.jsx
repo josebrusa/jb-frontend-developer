@@ -6,11 +6,11 @@ export const AnimHeader = () => {
       <TypeAnimation
         sequence={[
           "Hola!!!",
-          1000,
+          800,
           "Soy Jose Brusa",
-          2000,
+          800,
           "Frontend Developer",
-          5000,
+          800,
         ]}
         wrapper="div"
         cursor={true}
