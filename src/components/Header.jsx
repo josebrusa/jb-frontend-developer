@@ -23,18 +23,18 @@ const Header = () => {
             <AnimHeader />
           </h1>
           <div className="mt-16 w-1/2 flex justify-around">
-            <a href="https://github.com/josebrusa" alt="github-link">
+            <a href="https://github.com/josebrusa" aria-label="github-link">
               <FaGithub className=" w-[50px] h-[50px] cursor-pointer text-white" />
             </a>
             <a
               href="https://www.linkedin.com/in/josebrusa/"
-              alt="linkedin-link"
+              aria-label="linkedin-link"
             >
               <FaLinkedin className="w-[50px] h-[50px] cursor-pointer text-white" />
             </a>
             <a
               href="https://api.whatsapp.com/send/?phone=34670969147"
-              alt="whatsapp-link"
+              aria-label="whatsapp-link"
             >
               <FaWhatsapp className="w-[50px] h-[50px] cursor-pointer text-white" />
             </a>
