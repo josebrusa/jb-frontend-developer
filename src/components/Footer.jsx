@@ -6,17 +6,23 @@ const Footer = () => {
       <div id="footer" className="max-w-[1040px] m-auto md:pl-20 p-6 py-16">
         <div className="grid grid-row-2 gap-10 justify-center justify-items-center ">
           <div className="flex flex-row gap-5">
-            <a href="https://github.com/josebrusa" alt="github-link">
+            <a
+              href="https://github.com/josebrusa"
+              aria-label="github-link"
+              alt="github-link"
+            >
               <FaGithub className=" w-[50px] h-[50px] cursor-pointer text-white" />
             </a>
             <a
               href="https://www.linkedin.com/in/josebrusa/"
+              aria-label="linkedin-link"
               alt="linkedin-link"
             >
               <FaLinkedin className="w-[50px] h-[50px] cursor-pointer text-white" />
             </a>
             <a
               href="https://api.whatsapp.com/send/?phone=34670969147"
+              aria-label="whatsapp-link"
               alt="whatsapp-link"
             >
               <FaWhatsapp className="w-[50px] h-[50px] cursor-pointer text-white" />
