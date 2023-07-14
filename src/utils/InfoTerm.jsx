@@ -1,6 +1,6 @@
 export const InfoTerm = () => {
   return (
-    <div className="max-w-[720px] m-14 pl-20 text-white max-lg:hidden">
+    <div className="max-w-[640px]  flex flex-col text-white max-lg:hidden">
       <div className="flex">
         <p className="text-[#E455AE] text-4xl mx-2">const</p>
         <p className="text-[#37EBF3] text-4xl ">getUser</p>

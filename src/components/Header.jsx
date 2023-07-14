@@ -12,7 +12,7 @@ const Header = () => {
             <div className="bg-amber-400 rounded-full m-2 w-5 h-5"></div>
             <div className="bg-lime-500 rounded-full m-2 w-5 h-5"></div>
           </div>
-          <div>
+          <div className="flex mx-20 px-20">
             <InfoTerm />
           </div>
         </div>
