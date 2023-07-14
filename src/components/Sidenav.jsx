@@ -16,65 +16,7 @@ const Sidenav = () => {
   };
 
   return (
-    <div>
-      <AiOutlineMenu
-        onClick={handelNav}
-        className="text-black absolute top-4 right-4 z-[99] md:hidden"
-      />
-
-      {nav ? (
-        <div className="fixed w-full h-screen bg-white/90 flex flex-col justify-center items-center z-20">
-          <a
-            onClick={handelNav}
-            href="#header"
-            aria-label="header"
-            className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639]  m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
-          >
-            <AiOutlineHome size={20} color="#fff" />
-            <span className="pl-4 text-white">Home</span>
-          </a>
-          <a
-            onClick={handelNav}
-            href="#works"
-            aria-label="works"
-            className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
-          >
-            <MdOutlineWorkOutline size={20} color="#fff" />
-            <span className="pl-4 text-white">Works</span>
-          </a>
-          <a
-            onClick={handelNav}
-            href="#resume"
-            aria-label="resume"
-            className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
-          >
-            <BsPerson size={20} color="#fff" />
-            <span className="pl-4 text-white">Sobre mi</span>
-          </a>
-          <a
-            onClick={handelNav}
-            href="#projects"
-            aria-label="projects"
-            className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
-          >
-            <AiOutlineProject size={20} color="#fff" />
-            <span className="pl-4 text-white">Projects</span>
-          </a>
-
-          <a
-            onClick={handelNav}
-            aria-label="contac"
-            href="#contact"
-            className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90  shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
-          >
-            <AiOutlineMail size={20} color="#fff" />
-            <span className="pl-4 text-white">Contact</span>
-          </a>
-        </div>
-      ) : (
-        ""
-      )}
-
+    <>
       <div className="md:block hidden fixed top-[25%] z-10">
         <div className="flex flex-col">
           <a
@@ -114,7 +56,65 @@ const Sidenav = () => {
           </a>
         </div>
       </div>
-    </div>
+      <div>
+        <AiOutlineMenu
+          onClick={handelNav}
+          className="text-black absolute top-4 right-4 z-[99] md:hidden"
+        />
+        {nav ? (
+          <div className="fixed w-full h-screen bg-white/90 flex flex-col justify-center items-center z-20">
+            <a
+              onClick={handelNav}
+              href="#header"
+              aria-label="header"
+              className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639]  m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
+            >
+              <AiOutlineHome size={20} color="#fff" />
+              <span className="pl-4 text-white">Home</span>
+            </a>
+            <a
+              onClick={handelNav}
+              href="#works"
+              aria-label="works"
+              className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
+            >
+              <MdOutlineWorkOutline size={20} color="#fff" />
+              <span className="pl-4 text-white">Works</span>
+            </a>
+            <a
+              onClick={handelNav}
+              href="#resume"
+              aria-label="resume"
+              className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
+            >
+              <BsPerson size={20} color="#fff" />
+              <span className="pl-4 text-white">Sobre mi</span>
+            </a>
+            <a
+              onClick={handelNav}
+              href="#projects"
+              aria-label="projects"
+              className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90 shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
+            >
+              <AiOutlineProject size={20} color="#fff" />
+              <span className="pl-4 text-white">Projects</span>
+            </a>
+
+            <a
+              onClick={handelNav}
+              aria-label="contac"
+              href="#contact"
+              className="w-[70%] flex justify-center items-center rounded-full border-1 border-solid border-[#4A4A4A] opacity-90  shadow-md bg-[#343639] shadow-[#343639] m-2 p-4 cursor-pointer hover:scale-105 ease-in duration-200"
+            >
+              <AiOutlineMail size={20} color="#fff" />
+              <span className="pl-4 text-white">Contact</span>
+            </a>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+    </>
   );
 };
 

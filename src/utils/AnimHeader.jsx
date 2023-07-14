@@ -5,7 +5,7 @@ export const AnimHeader = () => {
     <div>
       <TypeAnimation
         sequence={[
-          "Hola!!!",
+          "Bienvenido!",
           800,
           "Soy Jose Brusa",
           800,
