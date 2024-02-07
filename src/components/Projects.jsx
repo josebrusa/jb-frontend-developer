@@ -6,7 +6,7 @@ const petsgram =
 const fastfood =
   "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/fastfood.webp";
 const extranjeria =
-  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/extranjeria.webp?t=2023-07-07T13%3A36%3A12.239Z";
+  "gs://myweb-9312f.appspot.com/img/extranjeria.webp";
 
 const Projects = () => {
   return (
