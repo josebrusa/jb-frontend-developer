@@ -1,12 +1,12 @@
 import ProjectItems from "./ProjectItems";
 const giffity =
   "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/giffity.webp";
-const petsgram =
-  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/petsgram.webp";
+const minecraft =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/javascrift.vercel.app.png?t=2024-04-12T15%3A56%3A01.273Z";
 const fastfood =
   "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/fastfood.webp";
-const extranjeria =
-  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/extranjeria.webp?t=2023-07-07T13%3A36%3A12.239Z";
+const calendary =
+  "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/candelary-app-vite.vercel.png";
 
 const Projects = () => {
   return (
@@ -32,14 +32,14 @@ const Projects = () => {
             link={"https://giffity.vercel.app/"}
           />
           <ProjectItems
-            img={petsgram}
-            title="Petsgram App"
-            link={"https://petsgram.vercel.app/"}
+            img={minecraft}
+            title="Minecraft App"
+            link={"https://javascrift.vercel.app/"}
           />
           <ProjectItems
-            img={extranjeria}
-            title="Extranjeria App"
-            link={"https://luciano-extranjeria.vercel.app/"}
+            img={calendary}
+            title="Calendary App"
+            link={"https://candelary-app-vite.vercel.app/auth/login"}
           />
           <ProjectItems
             img={fastfood}
