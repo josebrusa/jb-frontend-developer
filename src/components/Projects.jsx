@@ -5,8 +5,13 @@ const minecraft =
   "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/javascrift.vercel.app.png?t=2024-04-12T15%3A56%3A01.273Z";
 const fastfood =
   "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/fastfood.webp";
+<<<<<<< HEAD
 const calendary =
   "https://scxchfxwxsaoyvffjfhi.supabase.co/storage/v1/object/public/images/candelary-app-vite.vercel.png";
+=======
+const extranjeria =
+  "gs://myweb-9312f.appspot.com/img/extranjeria.webp";
+>>>>>>> 73927a78cdc16fe642e10cae3cb3ae3fe7bedcda
 
 const Projects = () => {
   return (
