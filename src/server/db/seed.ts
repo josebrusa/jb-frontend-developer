@@ -1,4 +1,5 @@
 import { config } from "dotenv";
+import { count } from "drizzle-orm";
 import { drizzle as drizzlePg } from "drizzle-orm/node-postgres";
 import pg from "pg";
 
@@ -20,42 +21,52 @@ if (!databaseConnection) {
 
 const pool = new pg.Pool({ connectionString: databaseConnection.url });
 const seedDb = drizzlePg(pool);
+const seedOnlyEmptyTables = process.argv.includes("--if-empty");
 
-for (const experience of seedExperiences) {
-  await seedDb
-    .insert(experiences)
-    .values(experience)
-    .onConflictDoUpdate({
-      target: experiences.slug,
-      set: {
-        year: experience.year,
-        title: experience.title,
-        company: experience.company,
-        duration: experience.duration,
-        details: experience.details,
-        skills: experience.skills,
-        sortOrder: experience.sortOrder,
-      },
-    });
+async function tableHasRows(table: typeof experiences | typeof projects): Promise<boolean> {
+  const [result] = await seedDb.select({ value: count() }).from(table);
+  return (result?.value ?? 0) > 0;
 }
 
-for (const project of seedProjects) {
-  await seedDb
-    .insert(projects)
-    .values(project)
-    .onConflictDoUpdate({
-      target: projects.slug,
-      set: {
-        title: project.title,
-        description: project.description,
-        repositoryUrl: project.repositoryUrl,
-        demoUrl: project.demoUrl,
-        imageUrl: project.imageUrl,
-        technologies: project.technologies,
-        featured: project.featured,
-        sortOrder: project.sortOrder,
-      },
-    });
+if (!seedOnlyEmptyTables || !(await tableHasRows(experiences))) {
+  for (const experience of seedExperiences) {
+    await seedDb
+      .insert(experiences)
+      .values(experience)
+      .onConflictDoUpdate({
+        target: experiences.slug,
+        set: {
+          year: experience.year,
+          title: experience.title,
+          company: experience.company,
+          duration: experience.duration,
+          details: experience.details,
+          skills: experience.skills,
+          sortOrder: experience.sortOrder,
+        },
+      });
+  }
+}
+
+if (!seedOnlyEmptyTables || !(await tableHasRows(projects))) {
+  for (const project of seedProjects) {
+    await seedDb
+      .insert(projects)
+      .values(project)
+      .onConflictDoUpdate({
+        target: projects.slug,
+        set: {
+          title: project.title,
+          description: project.description,
+          repositoryUrl: project.repositoryUrl,
+          demoUrl: project.demoUrl,
+          imageUrl: project.imageUrl,
+          technologies: project.technologies,
+          featured: project.featured,
+          sortOrder: project.sortOrder,
+        },
+      });
+  }
 }
 
 await pool.end();
