@@ -82,3 +82,4 @@ Captura de pantalla*.png
 tmp/
 temp/
 .cache/
+.vercel
