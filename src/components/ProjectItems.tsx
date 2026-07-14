@@ -29,11 +29,13 @@ const ProjectItems = ({ project }: ProjectItemsProps) => {
 
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
   const href = project.demoUrl ?? project.repositoryUrl ?? "#";
   const technologies = project.technologies.slice(0, 5);
   const deployment = getDisplayUrl(project.demoUrl) ?? "Private deployment";
   const repository = getDisplayUrl(project.repositoryUrl) ?? "GitHub source";
   const availability = project.demoUrl ? "Live" : project.repositoryUrl ? "Code" : "Private";
+  const shouldShowImage = Boolean(project.imageUrl && failedImageUrl !== project.imageUrl);
   const initials = project.title
     .split(/\s|-/)
     .filter(Boolean)
@@ -78,10 +80,11 @@ const ProjectItems = ({ project }: ProjectItemsProps) => {
       >
         <div className="pointer-events-none absolute right-8 top-8 h-24 w-24 rounded-full bg-[#29F3C3]/10 blur-3xl transition group-hover:bg-[#29F3C3]/20" />
         <div className="relative block min-w-0 overflow-hidden rounded-[1.1rem] border border-white/12 bg-[#111] shadow-inner shadow-white/5 sm:rounded-[1.25rem]">
-          {project.imageUrl ? (
+          {shouldShowImage ? (
             <img
-              src={project.imageUrl}
+              src={project.imageUrl ?? ""}
               alt={`Captura del proyecto ${project.title}`}
+              onError={() => setFailedImageUrl(project.imageUrl)}
               className="h-52 w-full object-cover opacity-80 grayscale transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100 group-hover:grayscale-0 sm:h-64 md:h-full"
             />
           ) : project.demoUrl ? (

@@ -158,6 +158,37 @@ async function uploadDeploymentPreviewToR2(imageUrl: string | null, slug: string
   }).catch(() => null);
 }
 
+async function captureDeploymentPreviewToR2(demoUrl: string, slug: string): Promise<string> {
+  if (!hasR2Config()) {
+    throw new Error("Cloudflare R2 config is required");
+  }
+
+  const { chromium } = await import("playwright");
+  const browser = await chromium.launch();
+
+  try {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 960 }, deviceScaleFactor: 1 });
+
+    try {
+      await page.goto(demoUrl, { waitUntil: "domcontentloaded", timeout: 30_000 });
+      await page.waitForLoadState("networkidle", { timeout: 8_000 }).catch(() => null);
+      await page.waitForTimeout(1_500);
+
+      const body = await page.screenshot({ type: "jpeg", quality: 82, fullPage: false });
+
+      return uploadToR2({
+        key: `assets/img/deployment/${slug}.jpg`,
+        body,
+        contentType: "image/jpeg",
+      });
+    } finally {
+      await page.close();
+    }
+  } finally {
+    await browser.close();
+  }
+}
+
 async function requireAdmin(): Promise<void> {
   if (!(await isAdminAuthenticated())) {
     redirect("/admin?error=auth");
@@ -240,6 +271,43 @@ export async function toggleProjectVisibility(formData: FormData): Promise<void>
   }
 
   await db.delete(projects).where(eq(projects.id, id));
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+}
+
+export async function captureProjectPreview(formData: FormData): Promise<void> {
+  await requireAdmin();
+
+  if (!db) {
+    redirect("/admin?error=db");
+  }
+
+  if (!hasR2Config()) {
+    redirect("/admin?error=r2");
+  }
+
+  const id = Number(formData.get("id"));
+  if (!Number.isInteger(id)) {
+    redirect("/admin?error=project");
+  }
+
+  const [project] = await db
+    .select({ id: projects.id, slug: projects.slug, demoUrl: projects.demoUrl })
+    .from(projects)
+    .where(eq(projects.id, id))
+    .limit(1);
+
+  if (!project?.demoUrl) {
+    redirect("/admin?error=project");
+  }
+
+  try {
+    const imageUrl = await captureDeploymentPreviewToR2(project.demoUrl, project.slug);
+    await db.update(projects).set({ imageUrl }).where(eq(projects.id, project.id));
+  } catch {
+    redirect("/admin?error=preview");
+  }
 
   revalidatePath("/");
   revalidatePath("/admin");

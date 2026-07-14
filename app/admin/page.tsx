@@ -1,4 +1,5 @@
 import {
+  captureProjectPreview,
   getAdminProjectData,
   importGitHubProject,
   isAdminAuthenticated,
@@ -30,6 +31,14 @@ function getErrorMessage(error: string | string[] | undefined): string | null {
 
   if (value === "project") {
     return "No se pudo procesar el proyecto seleccionado.";
+  }
+
+  if (value === "preview") {
+    return "No se pudo capturar la imagen del proyecto. Revisá que tenga URL pública y que Cloudflare R2 esté configurado.";
+  }
+
+  if (value === "r2") {
+    return "Configurá las variables de Cloudflare R2 para subir capturas.";
   }
 
   if (value === "limited") {
@@ -283,12 +292,23 @@ const AdminPage = async ({ searchParams }: AdminPageProps) => {
                       ))}
                     </div>
                   </div>
-                  <form action={toggleProjectVisibility} className="mt-5 md:mt-0">
-                    <input type="hidden" name="id" value={project.id} />
-                    <button className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#29F3C3]">
-                      Ocultar
-                    </button>
-                  </form>
+                  <div className="mt-5 flex flex-col gap-3 md:mt-0 md:min-w-40">
+                    <form action={captureProjectPreview}>
+                      <input type="hidden" name="id" value={project.id} />
+                      <button
+                        className="w-full rounded-full bg-[#29F3C3] px-4 py-2 text-sm font-semibold text-black transition hover:bg-white disabled:cursor-not-allowed disabled:bg-white/15 disabled:text-white/35"
+                        disabled={!project.demoUrl || !hasDatabaseUrl}
+                      >
+                        {project.imageUrl ? "Recapturar imagen" : "Capturar imagen"}
+                      </button>
+                    </form>
+                    <form action={toggleProjectVisibility}>
+                      <input type="hidden" name="id" value={project.id} />
+                      <button className="w-full rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#29F3C3]">
+                        Ocultar
+                      </button>
+                    </form>
+                  </div>
                 </article>
               ))
             ) : (
