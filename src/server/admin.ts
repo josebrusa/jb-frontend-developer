@@ -189,6 +189,22 @@ async function captureDeploymentPreviewToR2(demoUrl: string, slug: string): Prom
   }
 }
 
+async function resolvePublicDemoUrl(input: {
+  title: string;
+  slug: string;
+  repositoryUrl: string | null;
+  demoUrl: string | null;
+}): Promise<string | null> {
+  const vercelProjects = await getVercelProjects();
+  const byRepositoryUrl = input.repositoryUrl
+    ? vercelProjects.find((project) => project.repositoryUrl === input.repositoryUrl && project.demoUrl)
+    : null;
+  const bySlug = vercelProjects.find((project) => project.slug === input.slug && project.demoUrl);
+  const byTitle = vercelProjects.find((project) => project.slug === slugify(input.title) && project.demoUrl);
+
+  return byRepositoryUrl?.demoUrl ?? bySlug?.demoUrl ?? byTitle?.demoUrl ?? input.demoUrl;
+}
+
 async function requireAdmin(): Promise<void> {
   if (!(await isAdminAuthenticated())) {
     redirect("/admin?error=auth");
@@ -293,18 +309,30 @@ export async function captureProjectPreview(formData: FormData): Promise<void> {
   }
 
   const [project] = await db
-    .select({ id: projects.id, slug: projects.slug, demoUrl: projects.demoUrl })
+    .select({
+      id: projects.id,
+      title: projects.title,
+      slug: projects.slug,
+      repositoryUrl: projects.repositoryUrl,
+      demoUrl: projects.demoUrl,
+    })
     .from(projects)
     .where(eq(projects.id, id))
     .limit(1);
 
-  if (!project?.demoUrl) {
+  if (!project) {
+    redirect("/admin?error=project");
+  }
+
+  const demoUrl = await resolvePublicDemoUrl(project);
+
+  if (!demoUrl) {
     redirect("/admin?error=project");
   }
 
   try {
-    const imageUrl = await captureDeploymentPreviewToR2(project.demoUrl, project.slug);
-    await db.update(projects).set({ imageUrl }).where(eq(projects.id, project.id));
+    const imageUrl = await captureDeploymentPreviewToR2(demoUrl, project.slug);
+    await db.update(projects).set({ demoUrl, imageUrl }).where(eq(projects.id, project.id));
   } catch {
     redirect("/admin?error=preview");
   }

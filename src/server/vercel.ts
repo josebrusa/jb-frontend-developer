@@ -4,11 +4,24 @@ type VercelProjectLink = {
   type?: string;
 };
 
+type VercelAlias = string | {
+  domain?: string;
+  url?: string;
+};
+
 type VercelProjectTarget = {
   url?: string;
-  alias?: string[];
-  aliases?: string[];
-  domains?: string[];
+  alias?: VercelAlias[];
+  aliases?: VercelAlias[];
+  domains?: VercelAlias[];
+};
+
+type VercelDeployment = {
+  url?: string;
+  target?: string | null;
+  alias?: VercelAlias[];
+  aliases?: VercelAlias[];
+  domains?: VercelAlias[];
 };
 
 type VercelProjectResponse = {
@@ -19,6 +32,7 @@ type VercelProjectResponse = {
   targets?: {
     production?: VercelProjectTarget;
   };
+  latestDeployments?: VercelDeployment[];
 };
 
 type VercelProjectsResponse = {
@@ -45,18 +59,43 @@ function normalizeVercelUrl(url: string | null | undefined): string | null {
   return url.startsWith("http") ? url : `https://${url}`;
 }
 
-function getProductionUrl(target: VercelProjectTarget | undefined): string | null {
-  if (!target) {
+function getAliasUrl(alias: VercelAlias | undefined): string | null {
+  if (!alias) {
+    return null;
+  }
+
+  if (typeof alias === "string") {
+    return alias;
+  }
+
+  return alias.domain ?? alias.url ?? null;
+}
+
+function getFirstAliasUrl(source: VercelProjectTarget | VercelDeployment | undefined): string | null {
+  if (!source) {
     return null;
   }
 
   const [publicDomain] = [
-    ...(target.alias ?? []),
-    ...(target.aliases ?? []),
-    ...(target.domains ?? []),
+    ...(source.alias ?? []),
+    ...(source.aliases ?? []),
+    ...(source.domains ?? []),
   ];
 
-  return normalizeVercelUrl(publicDomain ?? target.url);
+  return getAliasUrl(publicDomain);
+}
+
+function getProductionUrl(project: VercelProjectResponse): string | null {
+  const productionTarget = project.targets?.production;
+  const productionDeployment = project.latestDeployments?.find((deployment) => deployment.target === "production");
+  const [publicDomain] = [
+    getFirstAliasUrl(productionTarget),
+    getFirstAliasUrl(productionDeployment),
+    productionDeployment?.url,
+    productionTarget?.url,
+  ];
+
+  return normalizeVercelUrl(publicDomain);
 }
 
 function slugify(value: string): string {
@@ -98,7 +137,7 @@ export async function getVercelProjects(): Promise<VercelProject[]> {
       ? `https://github.com/${repositoryOwner}/${repositoryName}`
       : null;
 
-    const demoUrl = getProductionUrl(project.targets?.production);
+    const demoUrl = getProductionUrl(project);
 
     return {
       id: project.id,
