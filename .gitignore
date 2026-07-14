@@ -1,5 +1,39 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Production builds
+build/
+dist/
+dist-ssr/
+
+# Vercel
+.vercel/
+
+# Local agent/tooling configuration
+.agents/
+.opencode/
+skills-lock.json
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,20 +41,44 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# TypeScript
+*.tsbuildinfo
+
+# Testing and coverage
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Package manager caches
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# OS files
+.DS_Store
+Thumbs.db
 
 # Editor directories and files
+.idea/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-.vercel
+# Local documents and private assets
+jose cv actualizado.docx
+*.docx
+*.pdf
+Captura de pantalla*.png
+
+# Temporary files
+tmp/
+temp/
+.cache/
