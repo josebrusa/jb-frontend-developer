@@ -6,7 +6,7 @@ import { chromium } from "playwright";
 
 nextEnv.loadEnvConfig(process.cwd());
 
-const [{ projects }, { getDatabaseConnection }, { uploadToR2 }] = await Promise.all([
+const [{ projects }, { getDatabaseConnection }, { hasR2Config, uploadToR2 }] = await Promise.all([
   import("../src/server/db/schema"),
   import("../src/server/db/url"),
   import("../src/server/storage/r2"),
@@ -17,6 +17,12 @@ const databaseConnection = getDatabaseConnection();
 
 if (!databaseConnection) {
   throw new Error("DATABASE_URL is required to capture deployment previews");
+}
+
+if (!hasR2Config()) {
+  throw new Error(
+    "Cloudflare R2 config is required to capture deployment previews. Set CLOUDFLARE_R2_ENDPOINT, CLOUDFLARE_R2_BUCKET, CLOUDFLARE_PUBLIC_ASSETS_URL, CLOUDFLARE_R2_ACCESS_KEY_ID, and CLOUDFLARE_R2_SECRET_ACCESS_KEY.",
+  );
 }
 
 const pool = new pg.Pool({ connectionString: databaseConnection.url });

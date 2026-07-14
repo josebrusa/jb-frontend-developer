@@ -119,7 +119,7 @@ async function uploadDeploymentPreviewToR2(imageUrl: string | null, slug: string
   const extension = getImageExtension(contentType);
 
   return uploadToR2({
-    key: `my-page/assets/img/deployment/${slug}.${extension}`,
+    key: `assets/img/deployment/${slug}.${extension}`,
     body,
     contentType,
   }).catch(() => null);
@@ -255,7 +255,7 @@ export async function importGitHubProject(formData: FormData): Promise<void> {
         description: newProject.description,
         repositoryUrl: newProject.repositoryUrl,
         demoUrl: newProject.demoUrl,
-        imageUrl: newProject.imageUrl,
+        ...(newProject.imageUrl ? { imageUrl: newProject.imageUrl } : {}),
         technologies: newProject.technologies,
         featured: true,
         sortOrder: newProject.sortOrder,
