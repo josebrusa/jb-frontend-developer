@@ -7,6 +7,12 @@
   "engines": {
     "node": "24.x"
   },
+  "pnpm": {
+    "overrides": {
+      "esbuild": ">=0.24.3",
+      "postcss": ">=8.5.10"
+    }
+  },
   "scripts": {
     "assets:capture-deployments": "tsx scripts/capture-deployment-previews.ts",
     "assets:upload-cv": "tsx scripts/upload-cv.ts",
