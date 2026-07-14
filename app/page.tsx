@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const contactStatus = Array.isArray(params?.contact) ? params?.contact[0] : params?.contact;
 
   return (
-    <main className="relative z-10">
+    <main id="main-content" className="relative z-10">
       <VisualLayer />
       <Sidenav />
       <Header />

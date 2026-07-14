@@ -6,6 +6,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { asc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { getGitHubProjects } from "./github";
@@ -16,6 +17,31 @@ import { projects, type NewProject } from "./db/schema";
 import { hasR2Config, uploadToR2 } from "./storage/r2";
 
 const adminCookieName = "portfolio_admin";
+const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+const loginWindowMs = 15 * 60 * 1000;
+const maxLoginAttempts = 5;
+
+function isRateLimited(key: string, limit: number, windowMs: number): boolean {
+  const now = Date.now();
+  const current = loginAttempts.get(key);
+
+  if (!current || current.resetAt <= now) {
+    loginAttempts.set(key, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+
+  current.count += 1;
+  return current.count > limit;
+}
+
+async function getRequestKey(): Promise<string> {
+  const headerStore = await headers();
+  return (
+    headerStore.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    headerStore.get("x-real-ip") ||
+    "unknown"
+  );
+}
 
 function getAdminPassword(): string | null {
   return process.env.ADMIN_PASSWORD || null;
@@ -48,10 +74,17 @@ export async function isAdminAuthenticated(): Promise<boolean> {
 export async function loginAdmin(formData: FormData): Promise<void> {
   const password = getAdminPassword();
   const submittedPassword = String(formData.get("password") ?? "");
+  const requestKey = await getRequestKey();
+
+  if (isRateLimited(requestKey, maxLoginAttempts, loginWindowMs)) {
+    redirect("/admin?error=limited");
+  }
 
   if (!password || !safeCompare(submittedPassword, password)) {
     redirect("/admin?error=1");
   }
+
+  loginAttempts.delete(requestKey);
 
   const cookieStore = await cookies();
   cookieStore.set(adminCookieName, getSessionValue(password), {

@@ -1,9 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { neon } from "@neondatabase/serverless";
 import { and, eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/neon-http";
 import { drizzle as drizzlePg } from "drizzle-orm/node-postgres";
 import pg from "pg";
 
@@ -25,20 +23,23 @@ const url = await uploadToR2({
 const databaseConnection = getDatabaseConnection();
 
 if (databaseConnection) {
-  const scriptDb = databaseConnection.driver === "neon"
-    ? drizzle(neon(databaseConnection.url))
-    : drizzlePg(new pg.Pool({ connectionString: databaseConnection.url }));
+  const pool = new pg.Pool({ connectionString: databaseConnection.url });
+  const scriptDb = drizzlePg(pool);
 
-  await scriptDb
-    .delete(assets)
-    .where(and(eq(assets.type, "cv"), eq(assets.name, cvName)));
+  try {
+    await scriptDb
+      .delete(assets)
+      .where(and(eq(assets.type, "cv"), eq(assets.name, cvName)));
 
-  await scriptDb.insert(assets).values({
-    name: cvName,
-    type: "cv",
-    url,
-    description: "CV actualizado de Jose Brusa",
-  });
+    await scriptDb.insert(assets).values({
+      name: cvName,
+      type: "cv",
+      url,
+      description: "CV actualizado de Jose Brusa",
+    });
+  } finally {
+    await pool.end();
+  }
 }
 
 console.log(`CV uploaded: ${url}`);

@@ -65,19 +65,19 @@ const Header = () => {
         </div>
 
         <div className="mt-14 flex gap-5 text-white/70">
-          <a href="https://github.com/josebrusa" aria-label="github-link" className="transition hover:text-[#29F3C3]">
+          <a href="https://github.com/josebrusa" aria-label="Abrir perfil de GitHub de Jose Brusa" className="transition hover:text-[#29F3C3]">
               <FaGithub className="h-7 w-7" />
             </a>
             <a
               href="https://www.linkedin.com/in/josebrusa/"
-              aria-label="linkedin-link"
+              aria-label="Abrir perfil de LinkedIn de Jose Brusa"
               className="transition hover:text-[#29F3C3]"
             >
               <FaLinkedin className="h-7 w-7" />
             </a>
             <a
               href="https://api.whatsapp.com/send/?phone=34670969147"
-              aria-label="whatsapp-link"
+              aria-label="Contactar por WhatsApp"
               className="transition hover:text-[#29F3C3]"
             >
               <FaWhatsapp className="h-7 w-7" />

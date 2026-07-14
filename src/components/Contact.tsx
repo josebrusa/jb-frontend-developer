@@ -14,6 +14,14 @@ function getStatusMessage(status: string | undefined): string | null {
     return "Completá nombre, email y mensaje para poder enviarlo.";
   }
 
+  if (status === "invalid") {
+    return "Revisá los datos ingresados. El email debe ser válido y el mensaje no puede ser demasiado largo.";
+  }
+
+  if (status === "limited") {
+    return "Se alcanzó el límite temporal de envíos. Probá nuevamente en unos minutos.";
+  }
+
   if (status === "config") {
     return "Falta configurar el envío de emails en el servidor.";
   }
@@ -37,11 +45,15 @@ const Contact = ({ status }: ContactProps) => {
           <h2 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">Contacto</h2>
         </div>
         {statusMessage ? (
-          <p className={`mb-6 rounded-2xl border p-4 text-sm ${isSuccess ? "border-[#29F3C3]/25 bg-[#29F3C3]/10 text-[#C8FFF3]" : "border-red-400/20 bg-red-400/10 text-red-100"}`}>
+          <p role="status" aria-live="polite" className={`mb-6 rounded-2xl border p-4 text-sm ${isSuccess ? "border-[#29F3C3]/25 bg-[#29F3C3]/10 text-[#C8FFF3]" : "border-red-400/20 bg-red-400/10 text-red-100"}`}>
             {statusMessage}
           </p>
         ) : null}
         <form action={sendContactMessage}>
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="company">Empresa</label>
+            <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+          </div>
           <div className="grid md:grid-cols-2 gap-4 w-full py-2">
             <div className="flex flex-col">
               <label htmlFor="name" className="py-2 text-sm uppercase tracking-[0.2em] text-white/45">
@@ -52,6 +64,8 @@ const Contact = ({ status }: ContactProps) => {
                 className="flex rounded-2xl border border-white/10 bg-black/30 p-4 text-white outline-none transition focus:border-[#29F3C3]"
                 type="text"
                 name="name"
+                maxLength={120}
+                autoComplete="name"
                 required
               />
             </div>
@@ -62,6 +76,8 @@ const Contact = ({ status }: ContactProps) => {
                 className="flex rounded-2xl border border-white/10 bg-black/30 p-4 text-white outline-none transition focus:border-[#29F3C3]"
                 type="tel"
                 name="phone"
+                maxLength={40}
+                autoComplete="tel"
               />
             </div>
           </div>
@@ -72,6 +88,8 @@ const Contact = ({ status }: ContactProps) => {
               className="flex rounded-2xl border border-white/10 bg-black/30 p-4 text-white outline-none transition focus:border-[#29F3C3]"
               type="email"
               name="email"
+              maxLength={254}
+              autoComplete="email"
               required
             />
           </div>
@@ -82,6 +100,7 @@ const Contact = ({ status }: ContactProps) => {
               className="flex rounded-2xl border border-white/10 bg-black/30 p-4 text-white outline-none transition focus:border-[#29F3C3]"
               type="text"
               name="subject"
+              maxLength={160}
             />
           </div>
           <div className="flex flex-col py-2">
@@ -91,6 +110,7 @@ const Contact = ({ status }: ContactProps) => {
               className="flex rounded-2xl border border-white/10 bg-black/30 p-4 text-white outline-none transition focus:border-[#29F3C3]"
               rows={8}
               name="message"
+              maxLength={4000}
               required
             ></textarea>
           </div>

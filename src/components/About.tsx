@@ -44,7 +44,7 @@ const About = async () => {
             <img
               className="h-full w-full object-cover object-center grayscale transition duration-700 hover:grayscale-0"
               src={miperfil}
-              alt="foto perfil"
+              alt="Retrato de Jose Brusa"
             />
           </div>
         </MotionCard>

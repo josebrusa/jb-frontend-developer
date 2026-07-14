@@ -81,7 +81,7 @@ const ProjectItems = ({ project }: ProjectItemsProps) => {
           {project.imageUrl ? (
             <img
               src={project.imageUrl}
-              alt={project.title}
+              alt={`Captura del proyecto ${project.title}`}
               className="h-52 w-full object-cover opacity-80 grayscale transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100 group-hover:grayscale-0 sm:h-64 md:h-full"
             />
           ) : project.demoUrl ? (

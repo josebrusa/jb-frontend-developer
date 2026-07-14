@@ -17,6 +17,14 @@
     "jsx": "preserve",
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "app/**/*.ts", "app/**/*.tsx", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "scripts/**/*.ts",
+    "*.config.ts"
+  ],
   "references": []
 }

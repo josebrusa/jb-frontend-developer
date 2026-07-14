@@ -13,7 +13,7 @@ export default async function BlogPage() {
   const posts = await getBlogPosts();
 
   return (
-    <main className="min-h-screen px-6 py-20 text-white">
+    <main id="main-content" className="min-h-screen px-6 py-20 text-white">
       <section className="mx-auto max-w-5xl">
         <Link href="/" className="text-sm font-semibold text-[#29F3C3] transition hover:text-white">
           Volver al portfolio

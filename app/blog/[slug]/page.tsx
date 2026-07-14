@@ -33,7 +33,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="min-h-screen px-6 py-20 text-white">
+    <main id="main-content" className="min-h-screen px-6 py-20 text-white">
       <article className="mx-auto max-w-3xl">
         <Link href="/blog" className="text-sm font-semibold text-[#29F3C3] transition hover:text-white">
           Volver al blog

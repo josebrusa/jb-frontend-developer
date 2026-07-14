@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen px-6 py-20 text-white">
+    <main id="main-content" className="min-h-screen px-6 py-20 text-white">
       <section className="mx-auto max-w-3xl">
         <Link href="/" className="text-sm font-semibold text-[#29F3C3] transition hover:text-white">
           Volver al portfolio

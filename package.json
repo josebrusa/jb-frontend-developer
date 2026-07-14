@@ -19,6 +19,7 @@
     "db:studio": "drizzle-kit studio",
     "lint": "eslint app src --max-warnings 0",
     "typecheck": "tsc --noEmit",
+    "typecheck:scripts": "tsc --noEmit --skipLibCheck --module ESNext --moduleResolution Bundler --target ES2022 --lib ES2022,DOM --types node scripts/*.ts *.config.ts",
     "start": "next start"
   },
   "dependencies": {

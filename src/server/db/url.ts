@@ -2,7 +2,7 @@ export function getDatabaseConnection(): { url: string; driver: "pg" } | null {
   const databaseUrl = process.env.DATABASE_URL;
 
   if (databaseUrl && !isPlaceholderDatabaseUrl(databaseUrl)) {
-    return { url: databaseUrl, driver: "pg" };
+    return { url: normalizePostgresSslMode(databaseUrl), driver: "pg" };
   }
 
   const user = process.env.DB_USER;
@@ -24,6 +24,21 @@ export function getDatabaseConnection(): { url: string; driver: "pg" } | null {
     url: buildPostgresUrl({ user, password, host, port, name }),
     driver: "pg",
   };
+}
+
+function normalizePostgresSslMode(value: string): string {
+  try {
+    const url = new URL(value);
+    const sslMode = url.searchParams.get("sslmode");
+
+    if (sslMode && ["prefer", "require", "verify-ca"].includes(sslMode)) {
+      url.searchParams.set("sslmode", "verify-full");
+    }
+
+    return url.toString();
+  } catch {
+    return value;
+  }
 }
 
 export function getDatabaseUrl(): string | null {

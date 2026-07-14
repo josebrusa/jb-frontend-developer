@@ -32,6 +32,10 @@ function getErrorMessage(error: string | string[] | undefined): string | null {
     return "No se pudo procesar el proyecto seleccionado.";
   }
 
+  if (value === "limited") {
+    return "Demasiados intentos. Probá nuevamente en unos minutos.";
+  }
+
   return "Contraseña incorrecta o configuración incompleta.";
 }
 
@@ -135,7 +139,7 @@ const AdminPage = async ({ searchParams }: AdminPageProps) => {
 
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen bg-[#050505] px-6 py-20 text-white">
+      <main id="main-content" className="min-h-screen bg-[#050505] px-6 py-20 text-white">
         <section className="mx-auto max-w-md rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 shadow-2xl shadow-black/40 backdrop-blur-xl">
           <p className="text-sm uppercase tracking-[0.35em] text-[#29F3C3]">Admin</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em]">Portfolio CMS</h1>
@@ -155,6 +159,7 @@ const AdminPage = async ({ searchParams }: AdminPageProps) => {
               id="password"
               name="password"
               type="password"
+              autoComplete="current-password"
               className="w-full rounded-2xl border border-white/10 bg-black/40 p-4 text-white outline-none transition focus:border-[#29F3C3]"
               required
             />
@@ -208,7 +213,7 @@ const AdminPage = async ({ searchParams }: AdminPageProps) => {
   const vercelPagination = paginate(filteredVercelProjects, vercelPage);
 
   return (
-    <main className="min-h-screen bg-[#050505] px-6 py-12 text-white">
+    <main id="main-content" className="min-h-screen bg-[#050505] px-6 py-12 text-white">
       <div className="mx-auto max-w-6xl">
         <header className="mb-10 flex flex-col gap-5 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:flex-row md:items-end md:justify-between md:p-8">
           <div>
