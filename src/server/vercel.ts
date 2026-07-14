@@ -6,6 +6,9 @@ type VercelProjectLink = {
 
 type VercelProjectTarget = {
   url?: string;
+  alias?: string[];
+  aliases?: string[];
+  domains?: string[];
 };
 
 type VercelProjectResponse = {
@@ -34,12 +37,26 @@ export type VercelProject = {
   repositoryUrl: string | null;
 };
 
-function normalizeVercelUrl(url: string | undefined): string | null {
+function normalizeVercelUrl(url: string | null | undefined): string | null {
   if (!url) {
     return null;
   }
 
   return url.startsWith("http") ? url : `https://${url}`;
+}
+
+function getProductionUrl(target: VercelProjectTarget | undefined): string | null {
+  if (!target) {
+    return null;
+  }
+
+  const [publicDomain] = [
+    ...(target.alias ?? []),
+    ...(target.aliases ?? []),
+    ...(target.domains ?? []),
+  ];
+
+  return normalizeVercelUrl(publicDomain ?? target.url);
 }
 
 function slugify(value: string): string {
@@ -81,7 +98,7 @@ export async function getVercelProjects(): Promise<VercelProject[]> {
       ? `https://github.com/${repositoryOwner}/${repositoryName}`
       : null;
 
-    const demoUrl = normalizeVercelUrl(project.targets?.production?.url);
+    const demoUrl = getProductionUrl(project.targets?.production);
 
     return {
       id: project.id,
